@@ -1,10 +1,22 @@
-def century(number)
-  string = number.to_s
+def century(int)
+  century = (int / 100) + 1
+  century -= 1 if int % 100 == 0
+  century = century.to_s
+  if ['11','12','13'].include?(century.slice(-2,2))
+    ending = 'th'
+
+  elsif century[-1] == '1'
+    ending = 'st'
+  elsif century[-1] == '2'
+    ending = 'nd'
+  elsif century[-1] == '3'
+    ending = 'rd'
+  else
+    ending = 'th'
+  end
+century + ending
 end
 
-
-p 1965.round(-1)
-p 1965.round(-2)
 p century(2000) == '20th'
 p century(2001) == '21st'
 p century(1965) == '20th'

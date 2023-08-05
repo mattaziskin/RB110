@@ -1,0 +1,14 @@
+[1m[1;34mEnumerable#methods[0m[0m: 
+  chain  chunk_while     detect     each_entry  each_with_index   entries     find      flat_map  grep_v    inject  max_by   min_by     partition  slice_after   slice_when  tally 
+  chunk  collect_concat  each_cons  each_slice  each_with_object  filter_map  find_all  grep      group_by  lazy    member?  minmax_by  reduce     slice_before  sort_by     to_set
+[1m[1;34mArray#methods[0m[0m: 
+  &    []=            clear        cycle        drop_while  filter!     insert        map     permutation         reject                rindex     shuffle   sum         union    
+  *    all?           collect      deconstruct  each        find_index  inspect       map!    pop                 reject!               rotate     shuffle!  take        uniq     
+  +    any?           collect!     delete       each_index  first       intersect?    max     prepend             repeated_combination  rotate!    size      take_while  uniq!    
+  -    append         combination  delete_at    empty?      flatten     intersection  min     pretty_print        repeated_permutation  sample     slice     to_a        unshift  
+  <<   assoc          compact      delete_if    eql?        flatten!    join          minmax  pretty_print_cycle  replace               select     slice!    to_ary      values_at
+  <=>  at             compact!     difference   fetch       hash        keep_if       none?   product             reverse               select!    sort      to_h        zip      
+  ==   bsearch        concat       dig          fill        include?    last          one?    push                reverse!              shelljoin  sort!     to_s        |        
+  []   bsearch_index  count        drop         filter      index       length        pack    rassoc              reverse_each          shift      sort_by!  transpose 
+[1m[1;34mself.methods[0m[0m: __pry__
+[1m[1;34mlocals[0m[0m: _  __  _dir_  _ex_  _file_  _in_  _out_  pry_instance

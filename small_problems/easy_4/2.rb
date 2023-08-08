@@ -4,7 +4,6 @@ def century(int)
   century = century.to_s
   if ['11','12','13'].include?(century.slice(-2,2))
     ending = 'th'
-
   elsif century[-1] == '1'
     ending = 'st'
   elsif century[-1] == '2'

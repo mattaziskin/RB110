@@ -46,6 +46,26 @@ def joinor(array, dividor = ', ', ender = 'or ')
   array.join(dividor)
 end
 
+def who_starts?()
+  player1 = ''
+  player2 = ''
+  loop do
+    prompt "Who should start?  Computer or Player?"
+    response = gets.chomp.downcase
+    if response == 'player'
+      player1 = 'player'
+      player2 = 'computer'
+      break
+    elsif response == 'computer'
+      player1 = 'computer'
+      player2 = 'player'
+      break
+    else
+      prompt "Invalid input, please type a valid option"
+    end
+  end
+  return player1, player2
+end
 
 def player_places_piece!(brd)
   square = ''
@@ -66,8 +86,36 @@ def player_places_piece!(brd)
 end
 
 def computer_places_piece!(brd)
-  square = empty_squares(brd).sample
+  square = nil
+  WINNING_LINES.each do |line|
+    square = find_at_risk_square(line, brd, COMPUTER_MARKER)
+    break if square
+  end
+
+  if !square
+    WINNING_LINES.each do |line|
+    square = find_at_risk_square(line, brd, PLAYER_MARKER)
+    break if square
+  end
+  end
+
+  if brd[5] == INITIAL_MARKER
+    square = 5
+  end
+
+  if !square
+    square = empty_squares(brd).sample
+  end
+
   brd[square] = COMPUTER_MARKER
+end
+
+def find_at_risk_square(line, board, marker)
+  if board.values_at(*line).count(marker) == 2
+    board.select{|k,v| line.include?(k) && v == INITIAL_MARKER}.keys.first
+  else
+    nil
+  end
 end
 
 def board_full?(brd)
@@ -104,20 +152,34 @@ def scoreboard(player_wins, computer_wins)
   end
 end
 
+def place_piece!(player1, board)
+  if player1 == "player"
+    player_places_piece!(board)
+  else
+    computer_places_piece!(board)
+  end
+end
+
 loop do # match loop
   player_wins = 0
   computer_wins = 0
   loop do # gameplay loop
     board = initialize_board
     display_board(board)
-
+    scoreboard(player_wins, computer_wins)
+    player1, player2 = who_starts?()
+    current_player = player1
     loop do # move loop
-      display_board(board)
       scoreboard(player_wins, computer_wins)
-      player_places_piece!(board)
+      place_piece!(current_player, board)
+      display_board(board)
       break if someone_won?(board) || board_full?(board)
-      computer_places_piece!(board)
-      break if someone_won?(board) || board_full?(board)
+      if current_player == player1
+        current_player = player2
+      else
+        current_player = player1
+      end
+      #binding.pry
     end
 
     if someone_won?(board) && detect_winner(board) == "Player"
@@ -129,9 +191,7 @@ loop do # match loop
     else
       prompt "It's a tie!"
     end
-    display_board(board)
     scoreboard(player_wins, computer_wins)
-    #binding.pry
     break if player_wins == 5 || computer_wins == 5
   end
 
